@@ -1,0 +1,157 @@
+h4
+{
+    margin: 0px;
+}
+ul
+{
+    margin: 0;
+    padding: 0;
+    padding-top: 15px;
+}
+li
+{
+    list-style-type: none;
+}
+h5
+{
+    padding: 0px;
+    margin: 0px;
+}
+#mid-left-bar
+{
+  width: 200px;
+  height: 540px;
+  border-right: 1px solid #E1E1E1;
+  border-bottom: 1px solid #E1E1E1;
+
+}
+ .mid-left-bar-head
+{
+    width: 100%;
+    height: 210px;
+
+}
+.mid-left-bar-head li
+{
+    height: 31px;
+    width: 85%;
+    margin: 0px auto;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    line-height: 30px;
+    padding-left: 10px;
+    
+    font-size: 15px;
+    cursor: pointer;
+}
+.mid-left-bar-head li:nth-child(1)
+{
+    background-color: #F6F6F7;
+}
+.mid-left-bar-head li:hover
+{
+    background-color: #F6F6F7;
+}
+.mid-left-bar-body
+{
+    margin: 0px auto;
+}
+.mid-left-bar-body h5
+{
+    padding-left: 20px;
+    color: #C3C3C3;
+    margin-top: 6px;
+    font-size: 12.5px;
+}
+.mid-left-bar-body div
+{
+    height: 31px;
+    width: 85%;
+    line-height: 31px;
+    margin: 0px auto;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #868686;
+}
+.choose:hover
+{
+    background-color:#F6F6F7 ;
+}
+
+
+.mid-left-bar-head i
+{
+    margin-right: 10px;
+}
+span
+{
+    margin-left: 6px;
+}
+.mid-left-bar-bottom
+{
+    margin: 0px auto;
+    width: 100%;
+    height: 225px;
+    position: relative;
+}
+.mid-left-bar-bottom .h5
+{
+    margin-left: 20px;
+    color: #C3C3C3;
+    font-size: 12px;
+    padding-top: 13px;
+    float: left;
+    
+}
+.mid-left-bar-bottom .h5 i
+{
+    margin-left:7px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.my-song-list
+{
+    width: 100%;
+    height: 225px;
+    position: relative;
+}
+.mid-left-bar-bottom .plus
+{
+    padding-top: 8px;
+    color: #C3C3C3;
+    padding-left: 80px;
+    float: left;
+    font-size:17px ;
+    cursor: pointer;
+}
+.mid-left-bar-bottom ul
+{
+    position:absolute;
+    width: 100%;
+    height: 175px;
+    top: 40px;
+    padding-top: 0px;
+}
+
+.mid-left-bar-bottom ul li
+{
+    height: 30px;
+    width: 85%;
+    line-height: 30px;
+    margin: 0px auto;
+    border-radius: 5px;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #535353;
+    font-size: 14px;
+}
+.mid-left-bar-bottom ul i
+{
+    margin-right: 5px;
+}
+ ul li:hover
+{
+    background-color: #F6F6F7;
+}

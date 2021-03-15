@@ -1,0 +1,251 @@
+#top-bar{
+    width: 1020px;
+    height: 65px;
+    background-color: #EC4141;
+    position: relative;
+    margin: 0px auto;
+    box-shadow:15px 0 15px -15px rgba(0, 0, 0, 0.3),
+                   -15px 0 15px -15px rgba(0, 0, 0, 0.3);
+}
+.top-left-bar
+{
+  width: 210px;
+  height: 65px;   
+  position: relative;
+  float: left;
+}
+.top-left-bar .top-left-bar-logo{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 20px;
+    float: left;
+    cursor: pointer;
+}
+.top-left-bar .top-left-bar-logo img
+{
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+.top-left-bar-text{
+    position: absolute;
+    left: 45px;
+    line-height: 65px;
+    margin-left: 5px;
+    font-size: 17px;
+    color: #FFFFFF;
+}
+.top-mid-bar{
+    width: 380px;
+    height: 65px;
+    float: left;
+}
+.turn-left{
+    float: left;
+}
+.turn-right{
+    float: left;
+}
+.top-mid-bar  button{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #F9D8D8;
+    font-size: 10px;
+    cursor: pointer;
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+.top-mid-bar .turn-left button
+{
+   margin-left: 20px;
+   margin-bottom: 20px;
+   margin-top: 20px;
+}
+
+.top-mid-bar .turn-right button
+{
+   margin-left: 10px;
+   margin-bottom: 20px;
+   margin-top: 20px;
+}
+.inputbutton{
+    float: left;
+    display: block;
+    margin: 20px;
+    margin-left: 10px;
+    margin-top: 17.5px;
+    margin-right: 0px;
+    width: 170px;
+    height: 40px;
+    
+    position: relative;
+}
+.inputbutton input{
+    width: 145px;
+    height: 30px;
+    padding-left: 15px;
+    font-size: 12px;
+    line-height: 30px;
+    border-radius: 15px;
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #FFFFFF;
+
+}
+.inputbutton i
+{
+    font-size: 15px;
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 30px;
+    
+    top: 8px;
+    bottom: 0px;
+    color: #F9D8D8;
+    font-weight:700
+}
+.song{
+
+    width: 30px;
+    height: 65px;
+    float: left;
+    margin-top: 17.5px;
+    margin-bottom: 20px;
+}
+.song button{
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+}
+.top-right-bar
+{
+    width: 430px;
+    height: 65px;
+    float: left;
+}
+.top-right-bar .avatar{
+   float:left;
+   width: 160px;
+   height: 65px;
+   font-size:27px;
+   position: relative;
+   color: #E0E0E0;
+}
+.top-right-bar .avatar div
+{
+    width: 27px;
+    height: 28px;
+    position: absolute;
+    cursor: pointer;
+    top: 14px;
+    left: 10px;
+}
+/*未登錄 */
+.top-right-bar .avatar span
+{
+  font-size: 13px;
+  margin-bottom: 50px;
+  display: block;
+  position: absolute;
+  left: 40px;
+  line-height: 65px;
+  cursor: pointer;
+}
+.avatar span:hover
+{
+    color: #FFFFFF;
+}
+ .avatar span:nth-child(3)
+{
+    left: 100px;
+}
+.top-right-bar .avatar i:nth-child(3)
+{
+    position: absolute;
+    left: 85px;
+    font-size: 15px;
+    line-height: 65px;
+}
+.top-right-bar .allbtnfunction
+{
+   width: 270px;
+   height: 65px;
+   float: left;
+}
+.top-right-bar .allbtnfunction div
+{
+    float: left;
+    margin-right: 0px;
+    margin-left: 16px;
+    line-height:65px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #FBD9D9;
+}
+.top-right-bar .allbtnfunction div:hover
+{
+    color: #FFFFFF;
+}
+.top-left-bar .allbtnfunction .line
+{
+    width: 10px;
+    height: 20px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0px;
+}
+
+.skin-page
+{
+    width: 360px;
+    height: 670px;
+    position: absolute;
+    right: 0;
+    top: 65px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    
+}
+.skin-page .message-list
+{
+    background-color:#FFFFFF;
+    border: 1px 20px solid #BBBBBB;
+    margin: 0px auto;
+    width: 300px;
+    height: 30px;
+    border-radius: 20px;
+    font-size: 13.5px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+.skin-page .message-list div
+{
+    width: 75px;
+    line-height: 30px;    
+}
+.skin-page .message-list div:hover
+{
+    background-color: #F5F5F5;
+}
+.skin-page .message-list div:nth-child(1)
+{
+   
+    height: 30px;
+    border-radius: 20px;
+    background-color: #BBBBBB;
+   
+}
+.skin-page h2
+{
+    margin-left: 30px;
+    font-size: 23px;
+}
