@@ -1,19 +1,5 @@
-# vue-test
+# 網易雲...
+html+css+js速成..
+大概學了20天...
+自己用來記錄下自己做的項目......
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -1,11 +1,13 @@
 <template>
     <div id="midRightBar">
        <mid-right-top-bar></mid-right-top-bar>
+        
         <!--輪播圖的開始....-->
+        <keep-alive>
+           <router-view @getSongUrl="getSongUrl" @receiveindex="getindex">
 
-        <router-view @getSongUrl="getSongUrl" @receiveindex="getindex">
-
-        </router-view>
+           </router-view>
+        </keep-alive>
     </div>
 </template>
 

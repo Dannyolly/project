@@ -81,7 +81,7 @@ export default {
           {
               //console.log(url);
               var that=this;
-              this.$axios.get("https://autumnfish.cn/song/url?id="+url)
+              this.$axios.get("http://localhost:3000/song/url?id="+url)
               .then(res=>{
                   console.log(res);
                   that.url=res.data.data[0].url;
@@ -108,7 +108,7 @@ export default {
         getsong:function()
         {
             var that=this;
-            this.$axios.get("https://autumnfish.cn/top/song?type="+that.type)
+            this.$axios.get("http://localhost:3000/top/song?type="+that.type)
             .then(res=>{
                 //console.log(res.data.data);
                 that.newsongarr=res.data.data;

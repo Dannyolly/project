@@ -125,7 +125,7 @@ export default {
                * bestarr是精品歌單數組..入面還有其它歌單....
                */
               var that=this;
-              this.$axios.get("https://autumnfish.cn/top/playlist/highquality?cat="+that.thetag)
+              this.$axios.get("http://localhost:3000/top/playlist/highquality?cat="+that.thetag)
               .then((result) => {
                   
                 that.bestarr=result.data.playlists;
@@ -140,7 +140,7 @@ export default {
         getlistwithtag:function()
         {
                 var that=this;
-                this.$axios.get("https://autumnfish.cn/top/playlist?order&cat="+that.thetag)
+                this.$axios.get("http://localhost:3000/top/playlist?order&cat="+that.thetag)
                 .then((res)=>{
                     /**
                      * name

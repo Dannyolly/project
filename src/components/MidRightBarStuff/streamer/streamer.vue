@@ -29,7 +29,7 @@ export default {
         getstreamer:function()
         {
             var that=this;
-            this.$axios.get("https://autumnfish.cn/dj/banner")
+            this.$axios.get("http://localhost:3000/dj/banner")
             .then((result) => {
               console.log(result.data.data);  
               this.streamerarr=result.data.data;

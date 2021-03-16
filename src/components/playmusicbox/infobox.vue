@@ -101,6 +101,7 @@
           </commentbox>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -288,7 +289,7 @@ export default {
             * .user.nickname   名...
             */
            //console.log(this.songinfo.id);
-           this.$axios.get("https://autumnfish.cn/comment/hot?type=0&id="+this.songinfo.id)
+           this.$axios.get("http://localhost:3000/comment/hot?type=0&id="+this.songinfo.id)
            .then(res=>{
                //console.log(res);
                that.commentarr=res.data.hotComments;
@@ -297,7 +298,7 @@ export default {
        getnewcomment:function()
        {
            var that=this;
-           this.$axios.get("https://autumnfish.cn/")
+           this.$axios.get("http://localhost:3000/")
        }
   },
 };

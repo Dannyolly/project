@@ -138,7 +138,7 @@ export default {
         getAllTag:function()
         {
            var that=this;
-           this.$axios.get("https://autumnfish.cn/playlist/catlist")
+           this.$axios.get("http://localhost:3000/playlist/catlist")
            .then((res)=>{
                //console.log(res.data);
                that.tagarr=res.data.sub

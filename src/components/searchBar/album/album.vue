@@ -45,7 +45,7 @@ export default {
       getinfo:function()
       {
         var that=this
-        this.$axios.get('https://autumnfish.cn/cloudsearch?keywords='+that.searchstr+"&type=10")
+        this.$axios.get('http://localhost:3000/cloudsearch?keywords='+that.searchstr+"&type=10")
         .then((result) => { 
             //console.log(result.data.result.albums[0].artist.alias[0]);
             //console.log(result.data.result.albums[0].artist.name);

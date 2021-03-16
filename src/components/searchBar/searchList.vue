@@ -36,10 +36,6 @@ export default {
         }
     },
     methods: {
-        chance:function()
-        {
-          
-        }
     },
 }
 </script>
@@ -101,7 +97,7 @@ export default {
       }
       .the-title
       {
-          width: 271px;
+          width: 251px;
           height: 100%;
           display: inline-block;
       }

@@ -113,7 +113,7 @@ export default {
         gettaglist:function()
         {
                var that=this;
-              this.$axios.get("https://autumnfish.cn/video/group/list")
+              this.$axios.get("http://localhost:3000/video/group/list")
               .then(res=>{
                   //console.log(res);
                   this.taglist=res.data.data;
@@ -123,7 +123,7 @@ export default {
         getvideolist:function()
         {
             var that=this;
-            this.$axios.get("https://autumnfish.cn/mv/all")
+            this.$axios.get("http://localhost:3000/mv/all")
             .then((result) => {
                 //console.log(result)
             }).catch((err) => {

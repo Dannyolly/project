@@ -152,7 +152,7 @@ export default {
             getoriginmvlist:function()
             {
                 var that=this;
-                this.$axios.get("https://autumnfish.cn/mv/exclusive/rcmd?limit=6")
+                this.$axios.get("http://localhost:3000/mv/exclusive/rcmd?limit=6")
                 .then(res=>{
                     //console.log(res);
                     that.originarr=res.data.data
@@ -161,7 +161,7 @@ export default {
             getnewmvlist:function()
             {
               var that=this;
-              this.$axios.get("https://autumnfish.cn/mv/all?limit=6&area="+that.str)
+              this.$axios.get("http://localhost:3000/mv/all?limit=6&area="+that.str)
               .then(res=>{
                   //console.log(res);
                   that.mvarr=res.data.data;
@@ -178,7 +178,7 @@ export default {
               {
                   that.str1='';
               }
-              this.$axios.get("https://autumnfish.cn/top/mv?limit=10&area="+that.str1)
+              this.$axios.get("http://localhost:3000/top/mv?limit=10&area="+that.str1)
               .then(res=>{
                   //console.log(res);
                   that.mvrankingarr=res.data.data;

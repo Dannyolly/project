@@ -7,7 +7,7 @@ import axios from 'axios'
 export function get(config){
 
     const instance=axios.create({
-        baseURL: 'https://autumnfish.cn',
+        baseURL: 'http://localhost:3000',
     })
 
     return instance(config);

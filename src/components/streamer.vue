@@ -40,7 +40,7 @@ export default {
            //var result=get("personalized/djprogram");
           // console.log(result)
            var that=this;
-           this.$axios.get("https://autumnfish.cn/dj/personalize/recommend?limit=4")
+           this.$axios.get("http://localhost:3000/dj/personalize/recommend?limit=4")
            .then((result) => {
              that.streamerList=result.data.data;
              console.log(result);

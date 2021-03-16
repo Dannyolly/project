@@ -60,13 +60,29 @@ const midleftvideo=()=>import('../components/midleftbar/midleftvideo')
  */
 const midleftmv=()=>import('../components/midleftbar/MV/midleftmv')
 const myvideo=()=>import('../components/midleftbar/video1/myvideo')
+
+/**------------------------------------------------------------------------- */
+
+/**
+ * 2021.3.15....開始汁手尾.....(以前做好的頁面....)
+ * 獲取歌單....
+ * 推薦歌單--彈出的頁面songpage...
+ */
+const songpage=()=>import('../components/songpage/songpage')
+/**
+ * 2021.3.16......
+ * 歌單已做好....
+ * MV界面.......mvpage
+ */
+const mvpage=()=>import('../components/mvPage/mvpage')
+
 import midRightBar from '../components/midRightBar.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path:'',
-    redirect: '/home/video/mv'
+    redirect: '/home/firstPage/midRightMidBar'
   },
   {
     path: '/home',
@@ -75,6 +91,7 @@ const routes = [
       {
          path: 'firstPage',
          component:midRightBar,
+       
          //首頁.....
          /**
           * 個性推薦  歌單 主播電台  排行榜  歌手  最新音樂
@@ -85,6 +102,7 @@ const routes = [
           {
              path:'midRightMidBar',
              component:midRightMidBar,
+        
           },
           {
             path:'midSongList',
@@ -173,6 +191,18 @@ const routes = [
             component:midleftmv,
           },
         ]
+      },
+      /*----------------------------------------------- */
+      //獲取歌單頁面....
+      // songpage
+      {
+        path:'songpage',
+        component:songpage,
+      },
+      /**-------------------------------------------------- */
+      {
+         path:'mvpage',
+         component:mvpage,
       }
     ]
   },

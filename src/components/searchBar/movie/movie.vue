@@ -70,7 +70,7 @@ export default {
       getinfo:function()
       {
         var that=this
-        this.$axios.get('https://autumnfish.cn/cloudsearch?keywords='+that.searchstr+"&type=1014")
+        this.$axios.get('http://localhost:3000/cloudsearch?keywords='+that.searchstr+"&type=1014")
         .then((result) => { 
            //console.log(result.data.result);
            //that.videoCount=result.data.result;

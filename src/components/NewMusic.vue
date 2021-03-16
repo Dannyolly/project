@@ -52,7 +52,7 @@ export default {
         getNewMusicPic: function()
         {
             var that=this
-            this.$axios.get("https://autumnfish.cn/top/song?type=0")
+            this.$axios.get("http://localhost:3000/top/song?type=0")
             .then((result)=>{
                  that.NewMusicArr=result.data.data;
                  //that.NewMusicArtistsArr=result.album[].artists;

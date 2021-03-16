@@ -53,7 +53,7 @@ export default {
         getMvList:function()
         {
             var that=this;
-            this.$axios.get("https://autumnfish.cn//personalized/mv")
+            this.$axios.get("http://localhost:3000/personalized/mv")
             .then((result) => {
                  //console.log(result.data.result);
                  that.recommendMvList=result.data.result;

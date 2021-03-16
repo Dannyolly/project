@@ -55,7 +55,7 @@ export default {
   },
   /**
    * @-1
-   * https://forum.vuejs.org/t/props-props/25997/3
+   * http://forum.vuejs.org/t/props-props/25997/3
    * 2021-3-7  13:37
    * 父組件傳入子組件的值
    * 是不能由子組件去改變

@@ -113,7 +113,7 @@ export default {
            var that=this;
            if(that.num3=='')
            {
-            this.$axios.get("https://autumnfish.cn/artist/list?limit=20&type="+this.num2+'&area='+this.num1)
+            this.$axios.get("http://localhost:3000/artist/list?limit=20&type="+this.num2+'&area='+this.num1)
                .then((result) => {
                   that.songpicarr=result.data.artists;
                   //console.log(that.songpicarr)
@@ -123,7 +123,7 @@ export default {
            }
            else 
           {
-              this.$axios.get("https://autumnfish.cn/artist/list?limit=20&type="+this.num2+'&area='+this.num1+'&initial='+this.num3)
+              this.$axios.get("http://localhost:3000/artist/list?limit=20&type="+this.num2+'&area='+this.num1+'&initial='+this.num3)
                .then((result) => {
                   that.songpicarr=result.data.artists;
                  // console.log(that.songpicarr)
@@ -141,7 +141,7 @@ export default {
            var that=this;
 
               
-             this.$axios.get("https://autumnfish.cn/artist/list?type=-1&area=-1&limit=20")
+             this.$axios.get("http://localhost:3000/artist/list?type=-1&area=-1&limit=20")
                .then((result) => {
                   that.songpicarr=result.data.artists;
                   console.log(that.songpicarr)
@@ -150,7 +150,7 @@ export default {
                });
            
            //console.log(a)
-           //this.$axios.get("https://autumnfish.cn/")
+           //this.$axios.get("http://localhost:3000/")
        },
        getstrnum:function(str,arr,arrcontent)
        {

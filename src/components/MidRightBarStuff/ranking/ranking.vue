@@ -166,7 +166,7 @@ export default {
         settop5song:async function(i,arr,list)
         {
           var that=this;
-              await this.$axios.get("https://autumnfish.cn/playlist/detail?id="+that.top5arr[i].id)
+              await this.$axios.get("http://localhost:3000/playlist/detail?id="+that.top5arr[i].id)
               .then(res=>{
                   //console.log(res);
                   res.data.playlist.tracks.length=5;
@@ -212,7 +212,7 @@ export default {
         getarr:async function()
         {
            var that=this;
-           await this.$axios.get("https://autumnfish.cn/toplist")
+           await this.$axios.get("http://localhost:3000/toplist")
            .then((result) => {
               that.getrankingarr=result.data.list;
               //console.log(that.getrankingarr)

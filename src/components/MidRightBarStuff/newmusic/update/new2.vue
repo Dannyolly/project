@@ -131,7 +131,7 @@ export default {
         getnewsong: function()
         {
               var that=this;
-          this.$axios.get("https://autumnfish.cn/top/album?type="+that.type)
+          this.$axios.get("http://localhost:3000/top/album?type="+that.type)
               .then(res=>{
                   //console.log(res.data);
                   that.newsong=res.data;
@@ -146,8 +146,8 @@ export default {
         getnewsong1: function()
         {
              var that=this;
-             console.log("https://autumnfish.cn/top/album?type="+that.choose+'&area='+that.type);
-            this.$axios.get("https://autumnfish.cn/top/album?type="+that.choose+'&area='+that.type)
+             console.log("http://localhost:3000/top/album?type="+that.choose+'&area='+that.type);
+            this.$axios.get("http://localhost:3000/top/album?type="+that.choose+'&area='+that.type)
               .then(res=>{
                   console.log(res.data);
                   that.newsong=res.data;

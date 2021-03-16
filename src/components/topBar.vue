@@ -179,7 +179,7 @@ export default {
    methods: {
        getImage:function()
        {
-            axios.get("https://autumnfish.cn/homepage/dragon/ball")
+            axios.get("http://localhost:3000/homepage/dragon/ball")
                   .then(function(response)
                   {
                       console.log(response);
@@ -197,7 +197,9 @@ export default {
        gohome:function()
        {
          //console.log('home');
+         //this.$emit('checkMv');
          this.$router.replace('/home/firstPage/midRightMidBar');
+         
          //console.log(axios.defaults.withCredentials);
        },
        goabout:function()

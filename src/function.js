@@ -7,7 +7,7 @@
 
  //請求輪播圖...
   function getBannerImage() {
-    axios.get("https://autumnfish.cn/banner?type=2").then(
+    axios.get("http://localhost:3000/banner?type=2").then(
       function (response) {
         console.log(response.data.banners);
       },

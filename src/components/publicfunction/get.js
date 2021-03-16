@@ -6,7 +6,7 @@
  var getinformation=function(search)
  {
     return new Promise(function(resolve,reject){
-        this.$axios.get("https://autumnfish.cn"+search)
+        this.$axios.get("http://localhost:3000"+search)
         .then((result) => {
             resolve(result.data);
         }).catch((err) => {

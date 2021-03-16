@@ -10,7 +10,7 @@
               <span slot="best-box-information" class="best-box-information">
                  {{artist.occupation+":"}} {{artist.name}}
                  <!--v-if是為廢事報錯....又是因為異步操作...
-                 https://www.cnblogs.com/xxm980617/p/10849941.html
+                 http://www.cnblogs.com/xxm980617/p/10849941.html
                  .所導致第一次查的時候為空?-->
                 <span v-if="artist.alias">{{'('+artist.alias[0] +')'}}</span>
              </span>

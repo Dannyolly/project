@@ -14,10 +14,11 @@
       <div class="recommend-top">
 
          <!--組件化中...67.--->
-         <img-box 
+         <img-box  
          v-for="(item,index) in recommendSongListPicArr" :key="item.name"
          >
-          <img :src="picArr[index]"
+          <img :src="picArr[index]" 
+           @click="gosongpage(index)"
            alt="" 
            slot="img">
            <span slot="text" class="recommend-text">
@@ -83,11 +84,24 @@ export default {
         this.getSongList();
     },
     methods: {
-        
+        /**--------------------------------------------------------------- */
+        /**
+         * gosongpage
+         * 跳轉到歌單頁面...
+         */
+        gosongpage:function(index)
+        {
+          //console.log('ok');
+          //console.log(this.recommendSongListPicArr[index]);
+         this.$router.push({path:'/home/songpage' ,query:{arr:this.recommendSongListPicArr[index]},});
+        },
+
+        /**------------------------------------------------------------- */
+
         getSongList:function()
         {
             var _this=this;
-            this.$axios.get("https://autumnfish.cn/personalized?limit=10")
+            this.$axios.get("http://localhost:3000/personalized?limit=10")
             .then((result) => {
                 _this.recommendSongListPicArr=result.data.result;
                 //console.log(_this.recommendSongListPicArr);
@@ -95,6 +109,9 @@ export default {
                 
             });
         },
+
+        /**------------------------------------------------------------- */
+
         setCount:function()
         {
               //把大於99999的數整排除...

@@ -121,7 +121,7 @@ export default {
       immediate: true,
     },
     //同一頁面跳轉...
-    //https://www.jianshu.com/p/56263ad8d2ff
+    //http://www.jianshu.com/p/56263ad8d2ff
     $route(to, from) {
       //this.start();
       this.setsearchstr();
@@ -142,7 +142,7 @@ export default {
      * 可能是異步操作...所以導致加入不了!??????????
      * 即此時當allList已放好....
      * watch 函數則執行 setAllList....
-     * https://www.jianshu.com/p/b70f1668d08f
+     * http://www.jianshu.com/p/b70f1668d08f
      * start....close 是為關閉或重新打開...加載組件...
      * 父收子的方法getTheSongUrl...再傳多次上去...
      */
@@ -265,7 +265,7 @@ export default {
                     */
       var that = this;
       console.log(this.allList);
-      //this.$axios.get("https://autumnfish.cn/album?"+that.allList.)
+      //this.$axios.get("http://localhost:3000/album?"+that.allList.)
 
       /*
                    for(var i=0;i<this.allList.length;i++)
@@ -273,7 +273,7 @@ export default {
                      that.idList[i]=that.allList[i].al.id;
                      
                     }
-                    this.$axios.get("https://autumnfish.cn/album?id="+that.idList[0])
+                    this.$axios.get("http://localhost:3000/album?id="+that.idList[0])
                     .then((result)=>{
                       console.log(result);
                     }).catch((error)=>{
@@ -288,7 +288,7 @@ export default {
       //console.log(that.searchstr);
       this.$axios
         .get(
-          "https://autumnfish.cn/cloudsearch?keywords=" +
+          "http://localhost:3000/cloudsearch?keywords=" +
             that.searchstr +
             "&type=1&limit=100"
         )
@@ -312,7 +312,7 @@ export default {
     getsongCount: function () {
       var that = this;
       this.$axios.get(
-        "https://autumnfish.cn/cloudsearch?keywords=" +
+        "http://localhost:3000/cloudsearch?keywords=" +
           that.searchstr +
           "&type=1"
       ).then((result)=>{
@@ -330,7 +330,7 @@ export default {
       var that = this;
       this.$axios
         .get(
-          "https://autumnfish.cn/search/multimatch?keywords=" + that.searchstr
+          "http://localhost:3000/search/multimatch?keywords=" + that.searchstr
         )
         .then((result) => {
           that.artist = result.data.result.artist[0];

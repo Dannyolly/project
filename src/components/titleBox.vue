@@ -1,6 +1,6 @@
 <template>
     <div id="titleBox">
-        <div class="recommend-title">
+        <div class="recommend-title" >
              <slot name="content"> 
                <slot name="text"></slot>
              </slot>
@@ -11,6 +11,7 @@
 <script>
 export default {
     name:'titleBox',
+    props:['width','height']
 }
 </script>
 

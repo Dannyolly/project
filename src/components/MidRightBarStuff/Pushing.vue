@@ -8,11 +8,11 @@
             </h2>
        </title-box>
 
-       <video-box v-for="item in videoListArr" :key="item.name">
+       <video-box  v-for="(item,index) in videoListArr" :key="item.name">
            <div slot="playbox" class="play-box">
                  <i class="fas fa-play"></i>
             </div>
-           <img :src="item.sPicUrl" alt="" slot="video">
+           <img @click="gotomvpage(index)" :src="item.sPicUrl" alt="" slot="video">
            <span slot="text" class="video-box-text">
             {{item.name}}
             </span>
@@ -42,10 +42,15 @@ export default {
        this.getVidoeList();
    },
    methods: {
+       gotomvpage:function(index)
+       {
+          // console.log('hi');
+           this.$router.push({path:'/home/mvpage',query:{arr:this.videoListArr[index]}});
+       },
        getVidoeList:function()
        {
            var _this=this;
-           this.$axios.get("https://autumnfish.cn/personalized/privatecontent")
+           this.$axios.get("http://localhost:3000/personalized/privatecontent")
            .then((result)=>{
                //console.log(result.data.result)
                _this.videoListArr=result.data.result;

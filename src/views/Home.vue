@@ -1,20 +1,34 @@
 <template>
   <div class="home" >
-     <top-bar @mysearch-message="getTheMessage">
+     <top-bar @checkMv="checkMv" @mysearch-message="getTheMessage">
      </top-bar>
      <!--<mid-bar></mid-bar>-->
-       <mid-left-bar></mid-left-bar>
+       <mid-left-bar v-if="isShowMv==true"></mid-left-bar>
        <!--
-         @getSongUrl="getTheSongUrl" 為searchbar用的
-         @getsongurl="getsongurl" 是其它子子....子組件傳上來的url,,,
+        1--- @getonesong="getonesong"    是歌單發來的單歌曲...
+
+        2--- @getallsong="getallsong"    是歌單中的播放全部......
+
+        3--- @getSongUrl="getTheSongUrl" 為searchbar用的
+
+        4--- @getsongurl="getsongurl"    是其它子子....子組件傳上來的url,,,
+
+        5----@checkMv="checkMv".....     為打開MV...令leftbar和audio關閉....
        -->
-      
             <router-view
-        @getthesongurl="getTheSongUrl"
-        @getsongurl="getsongurl"
-       >
-       </router-view>
-       
+            @getonesong="getonesong"
+
+            @getallsong="getallsong"
+
+            @getthesongurl="getTheSongUrl"
+
+            @getsongurl="getsongurl"
+
+            @checkMv="checkMv"
+            >
+
+            </router-view>
+
        <infobox :isinfo="isinfo" 
        :class="{infoactive:isinfo==true}" 
        :songword="songword"
@@ -63,7 +77,7 @@
          </div>
        </div>
 
-       <audiobox @showthesonginfo="changeisinfo" 
+       <audiobox v-if="isShowMv==true" @showthesonginfo="changeisinfo" 
        @show="change"  :src="audioUrl" :songinfo="songinfo"></audiobox>
        <!--:src="audioUrl"-->
   </div>
@@ -79,6 +93,8 @@ import Audiobox from '../components/playmusicbox/audiobox.vue'
 import Infobox from '../components/playmusicbox/infobox.vue'
 import Ownplaylist from '../components/playmusicbox/ownplaylist.vue'
 import SearchBar from '../components/searchBar/searchBar.vue'
+import songpage from '../components/songpage/songpage'
+import cut from '../components/publicfunction/function'
 /**
  * 重構一下.....假如midbar---是包含left-right
  * 則沒法動態變換rightbar....
@@ -93,6 +109,7 @@ export default {
        theMessage:'danny',
        //audioUrl....音樂連結....
        //audioUrlarr....保存起來的數組....
+       // audiourlarr 是當從列表歌單中選取歌曲.....所提取連結的源頭
        audioUrl:'',
        audioUrlarr:[],
        //isShow是歌單列表
@@ -113,12 +130,133 @@ export default {
        songword:'',
        songid:'',
        playingindex:-1,
+
+       //lastplayindex....
+       //記下上次的播放index
+       lastplayindex:-1,
+
+       //因為MV界面要求全部...所以leftbar同audio都要沒
+       /**
+        * 所以用一個值表示...
+        * isShowMv....
+        * checkMv()....$emit發來的函數....
+        */
+       isShowMv:true,
     }
   },
+  watch:{
+     //當audio
+     myplaylist:function()
+     {
+       this.checkoutnamelength();
+     }
+  },
   methods: {
+    /**-------------------------------------------------------------------- */
+     //因為MV界面要求全部...所以leftbar同audio都要沒
+       /**
+        * 所以用一個值表示...
+        * isShowMv....
+        * checkMv()....$emit發來的函數....
+       */
+    checkMv:function()
+    {
+      this.isShowMv=!this.isShowMv;
+    },
+    /**-------------------------------------------------------------------- */
     /**
-     * isinfo...
+     * checkoutnamelength()
+     * 檢查playlist中的artists name的展度....
+     * 使用cut函數....
      */
+    checkoutnamelength:function()
+    {
+      for(var i=0;i<this.myplaylist.length;i++)
+      {
+        if(this.myplaylist[i].ar[0].name.length>15)
+        {
+          this.myplaylist[i].ar[0].name=cut(this.myplaylist[i].ar[0].name.length-5,this.myplaylist[i].ar[0].name);
+        }
+      }
+    },
+    /**-------------------------------------------------------------------- */
+    /**
+     * getallsong(arr,index)
+     * 歌單中傳來的整個歌單...
+     * 當index==0則不播放音樂...
+     * 當index==1則自動播放音樂....
+     * 其實就是當index...不賦值給audiourl....
+     * 後續步驟跟getonesong一樣....(順序不一,過程也有一些不一.....)
+     * 1.獲取歌詞------------this.getsongword()
+     * 2.放入myplaylist------ this.myplaylist.push(songinfo)
+     * 3.然後checkWhichsong---重新指向該歌詞.....
+     * 4.依該歌曲請求播放地址....
+     * 5.放入that.audioUrl且push進audioUrlarr
+     * 默認播放的話(1)則取數組的第一個放進去....
+     * 
+     */
+    getallsong:function(arr,index)
+    {
+       this.songinfo=arr[0];
+       this.getsongword;
+       this.lastplayindex=this.myplaylist.length;
+       for(var i=0;i<arr.length;i++)
+       {
+         this.myplaylist.push(arr[i]);
+       }
+       this.checkwhichsong();
+       
+       //第4,5步.....4.依該歌曲請求播放地址....
+       //           5.放入that.audioUrl且push進audioUrlarr
+       // 判斷一下是0或1.....
+       //  1則全放入且播放....
+       // audioUrl為播放...
+
+       var that=this;
+       for(var i=0;i<arr.length;i++)
+       {
+       this.$axios.get("http://localhost:3000/song/url?id="+arr[i].id)
+           .then(res=>{
+            //console.log(res.data.data[0].url);
+             that.audioUrlarr.push(res.data.data[0].url);
+              //console.log(that.audioUrlarr);
+           })
+       }
+        //console.log(that.audioUrlarr);
+        //拿第一首歌為默認播放...
+        that.choosesongfromlist(this.lastplayindex);
+       
+    },
+    
+
+    /**-------------------------------------------------------------------- */
+    /**
+     * getonesong({})
+     * 只獲取一首歌......來至歌單....
+     * 三個操作...
+     * 1.獲取歌詞------------this.getsongword()
+     * 2.放入myplaylist------ this.myplaylist.push(songinfo)
+     * 3.然後checkWhichsong---重新指向該歌詞.....
+     * 4.依該歌曲請求播放地址....
+     * 5.放入that.audioUrl且push進audioUrlarr
+     */
+    getonesong:function(songinfo)
+    {
+      //console.log(songinfo);
+      this.songinfo=songinfo;
+      this.getsongword();
+      this.myplaylist.push(songinfo);
+      this.checkwhichsong();
+
+      var that=this;
+      this.$axios.get("http://localhost:3000/song/url?id="+this.songinfo.id)
+      .then(res=>{
+        //console.log(res.data.data[0].url);
+        that.audioUrl=res.data.data[0].url;
+        that.audioUrlarr.push(res.data.data[0].url);
+      })
+    },
+
     /**----------------是否彈出歌曲細節框------------------------------------------------- */
     changeisinfo:function()
     {
@@ -155,6 +293,7 @@ export default {
       //console.log(this.myplaylist);
       this.checkwhichsong();
       this.audioUrl=this.$route.query.songurl;
+      console.log(this.$route.query)
       this.getsongword();
       //放入音樂盒的url arr
       this.audioUrlarr.push(this.audioUrl);
@@ -173,7 +312,7 @@ export default {
     {
      //歌詞...
       var that=this;
-      this.$axios.get("https://autumnfish.cn/lyric?id="+this.songinfo.id)
+      this.$axios.get("http://localhost:3000/lyric?id="+this.songinfo.id)
       .then(res=>{
         that.songword=res.data.lrc.lyric;
       })
@@ -205,12 +344,12 @@ export default {
     /**----------------------------------------------------------------- */
 
     /**
-     * 從歌單中選歌....
+     * 從個人列表歌單中選歌....
      * choosesongfromlist
      */
     choosesongfromlist:function(index)
     {
-      console.log(index);
+      //console.log(index);
       this.songinfo=this.myplaylist[index];
       this.audioUrl=this.audioUrlarr[index];
       this.playingindex=index;
@@ -230,7 +369,7 @@ export default {
     Audiobox,
     Ownplaylist,
     Infobox,
-    
+    songpage,
   }
 }
 </script>
