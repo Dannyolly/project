@@ -10,7 +10,7 @@
             </div>
        </div>
 
-       <router-view @getSongUrl="getSongUrl">
+       <router-view @getonesong="getonesong" @getallsong="getallsong">
        </router-view>
     </div>
 </template>
@@ -32,10 +32,15 @@ export default {
     methods: {
         // 進入new1 or new2
         //統一接口....getSongUrl()
-        getSongUrl:function(url)
+        getallsong:function(arr,num)
         {
-           console.log('receive:'+url);
-           this.$emit('getSongUrl',url);
+              
+              this.$emit('getallsong',arr,num);
+        },
+        getonesong:function(arr)
+        {
+         //console.log('o');
+         this.$emit('getonesong',arr);
         },
         turnIn:function(str,num)
         {

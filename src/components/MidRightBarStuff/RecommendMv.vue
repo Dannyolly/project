@@ -6,13 +6,13 @@
                 <i class="fas fa-chevron-right" slot="text"></i>
             </h2>
         </title-box>
-        <video-box v-for="item in recommendMvList" :key="item.playCount">
+        <video-box v-for="(item,index) in recommendMvList" :key="item.playCount">
             <div slot="clickcount" class="playCount">
                 <i class="fas fa-play">
                     {{item.playCount}}
                 </i>
             </div>
-            <img :src="item.picUrl" alt="" slot="video">
+            <img @click="gotomvpage(index)" :src="item.picUrl" alt="" slot="video">
                  <h4 slot="h4" class="mv-title">{{item.name}}</h4>
              <span slot="text" class="video-box-text">
              {{item.artistName}}
@@ -50,14 +50,23 @@ export default {
         this.getMvList();
     },
     methods: {
+        
+         gotomvpage:function(index)
+          {
+          // console.log('hi');
+           //console.log(index);
+           this.$router.push({path:'/home/mvpage',query:{arr:this.recommendMvList[index],pre:this.$route.path,save:0}});
+          },
+        /**------------------------------------------------------------ */
         getMvList:function()
         {
             var that=this;
             this.$axios.get("http://localhost:3000/personalized/mv")
             .then((result) => {
-                 //console.log(result.data.result);
+                 
                  that.recommendMvList=result.data.result;
                  that.recommendMvList.length=3;
+                // console.log(result.data.result);
                  //console.log(that.recommendMvList);
                 
             }).catch((err) => {

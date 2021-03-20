@@ -1,5 +1,5 @@
 <template>
-    <div id="search-title">
+    <div id="search-title" :style="{width:width+'px'}">
         <!--line-->
         <div class="line"></div>
         <!--search-title-->
@@ -15,7 +15,8 @@
 
 <script>
 export default {
-    
+    name:'searchtitle',
+    props:['width'],
 }
 </script>
 

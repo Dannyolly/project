@@ -75,14 +75,26 @@ const songpage=()=>import('../components/songpage/songpage')
  * MV界面.......mvpage
  */
 const mvpage=()=>import('../components/mvPage/mvpage')
-
+/**
+ * 2021.3.17....
+ * 這個是歌手界面.....
+ * singerpage
+ */
+const singerpage=()=>import('../components/singerpage/singerpage')
+/**
+ * 2021.3.18....
+ * 這個是專輯界面....
+ * 最後了吧算????
+ * albumpage
+ */
+const albumpage=()=>import('../components/albumpage/albumpage')
 import midRightBar from '../components/midRightBar.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path:'',
-    redirect: '/home/firstPage/midRightMidBar'
+    redirect: '/home/video/mv'
   },
   {
     path: '/home',
@@ -177,6 +189,9 @@ const routes = [
       {
         path:'video',
         component:midleftvideo,
+        meta: {
+          keepAlive: true
+         },
         children:[
           {
             path:'',
@@ -185,16 +200,27 @@ const routes = [
           {
            path:'myvideo',
            component:myvideo,
+           meta: {
+            keepAlive: true
+           }
           },
           {
             path:'mv',
             component:midleftmv,
+            meta: {
+              keepAlive: true
+             }
           },
         ]
       },
       /*----------------------------------------------- */
       //獲取歌單頁面....
-      // songpage
+      /**
+       * songpage
+       * mvpage
+       * singerpage
+       * albumpage
+       */
       {
         path:'songpage',
         component:songpage,
@@ -203,6 +229,17 @@ const routes = [
       {
          path:'mvpage',
          component:mvpage,
+      },
+      /**----------------------------------------------------- */
+      {
+        path:'singerpage',
+        component:singerpage,
+        
+      },
+      /**--------------------------------------------------------- */
+      {
+        path:'albumpage',
+        component:albumpage,
       }
     ]
   },

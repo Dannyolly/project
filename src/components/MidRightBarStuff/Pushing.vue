@@ -45,7 +45,7 @@ export default {
        gotomvpage:function(index)
        {
           // console.log('hi');
-           this.$router.push({path:'/home/mvpage',query:{arr:this.videoListArr[index]}});
+           this.$router.push({path:'/home/mvpage',query:{arr:this.videoListArr[index],pre:this.$route.path,save:0}});
        },
        getVidoeList:function()
        {

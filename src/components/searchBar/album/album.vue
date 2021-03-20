@@ -1,7 +1,7 @@
 <template>
     <div id="album">
-        <listbox v-for="item in albumarr" :key="item.trackCount">
-             <img slot="img" :src="item.blurPicUrl" alt="">
+        <listbox v-for="(item,index) in albumarr" :key="item.trackCount">
+             <img @click="gotoalbumpage(index)" slot="img" :src="item.blurPicUrl" alt="">
              <div slot="name" class="listbox-text">
                  <span>{{item.name}}</span>
                  <span v-if="item.alias">({{item.alias[0]}})</span>
@@ -41,7 +41,12 @@ export default {
            this.saveCount();
        }
    },
-      methods: {
+      methods: 
+      {
+      gotoalbumpage:function(index)
+       {
+           this.$router.push({path:'/home/albumpage',query:{albumobj:this.albumarr[index]}})
+       },
       getinfo:function()
       {
         var that=this

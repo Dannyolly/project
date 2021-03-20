@@ -11,9 +11,9 @@
             </searchtag>
 
             <div class="video-container">
-             <img-box  v-for="item in songlistarr" :key="item.name" 
+             <img-box  v-for="(item,index) in songlistarr" :key="item.name+index" 
                :width="180" :height="180">
-               <img slot="img" :src="item.coverImgUrl" alt="">
+               <img @click="gotosongpage(index)" slot="img" :src="item.coverImgUrl" alt="">
                <span slot="text" class="recommend-text">{{item.name}}</span>
                <div slot="play" class="recommend-box-play">
                  <i class="fas fa-play"></i>
@@ -79,6 +79,19 @@ export default {
     },
     methods: 
     {
+        /**---------------------------------------------------------- */
+        /**
+         * gotosongpage(songobj)....統一接口...
+         * 都是去到歌單頁
+         */
+         gotosongpage:function(index)
+         {
+          console.log(this.songlistarr[index]);
+          this.$router.push({path:'/home/songpage' ,query:{arr:this.songlistarr[index]}});
+         },
+
+        /**---------------------------------------------------------- */
+
         /**
          * checkcount()..
          */
@@ -98,9 +111,9 @@ export default {
          */
         settag:function(name)
         {
-          console.log('im receive');
+          //console.log('im receive');
           this.thetag=name
-          console.log(this.thetag);
+          //console.log(this.thetag);
         },
         /**
          * setinfo() ..設置...

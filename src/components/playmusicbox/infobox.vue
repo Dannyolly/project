@@ -15,7 +15,8 @@
             src="../../assets/img/musiccircle1.png"
             alt=""
           />
-          <img v-if="songinfo.al.picUrl" class="ownpic move" :src="songinfo.al.picUrl" alt="" />
+          <img v-if="songinfo.al" class="ownpic move" :src="songinfo.al.picUrl" alt="" />
+          <img v-else-if="songinfo.album" class="ownpic move" :src="songinfo.album.picUrl" alt="" />
         </div>
         <div class="info-left-choose">
           <div class="box">
@@ -42,15 +43,17 @@
       </div>
 
       <div class="info-right-container">
-        <h2 v-if="songinfo.name" class="info-title">{{ songinfo.name }}</h2>
+        <h2 v-if="songinfo" class="info-title">{{ songinfo.name }}</h2>
         <div class="real-info">
           <div class="info-word">
             <div class="album">專輯:</div>
-            <div v-if="songinfo.al.name" class="album-name">{{ songinfo.al.name }}</div>
+            <div v-if="songinfo.al" class="album-name">{{ songinfo.al.name }}</div>
+            <div v-else-if="songinfo.album" class="album-name">{{ songinfo.album.name }}</div>
           </div>
           <div class="info-word">
             <div class="album">歌手:</div>
             <div v-if="songinfo.ar" class="album-name">{{ songinfo.ar[0].name }}</div>
+            <div v-else-if="songinfo.artists" class="album-name">{{ songinfo.artists[0].name }}</div>
           </div>
 
           <div class="info-word">
@@ -59,13 +62,18 @@
           </div>
         </div>
         <!--歌詞容器..-->
-        <div v-if="songwordarr" class="word-container">
-          <div 
+        <div class="word-real-container">
+
+        
+          <div  v-if="songwordarr" class="word-container">
+           <div 
             v-for="(item, index) in songwordarr"
             class="song-word"
             :key="item + index"
-          >
-            {{ item }}
+            :class="{singing:(parseFloat(timearr[index])<=(mycurrenttime))&&((index==timeindex-1)|| (index==timeindex))}"
+            >
+             {{ item }}
+            </div>
           </div>
         </div>
       </div>
@@ -111,11 +119,12 @@ import axios from 'axios';
 import Commentbox from "./commentbox.vue";
 export default {
   name: "infobox",
-  props: ["isinfo", "songword", "songinfo"],
+  props: ["isinfo", "songword", "songinfo",'mycurrenttime','istouch'],
   data() {
     return {
       thesongword: "",
       songwordarr: [],
+      timearr:[],
       a: {
         name: "恋爱ing",
         id: 385973,
@@ -239,6 +248,14 @@ export default {
       commentarr:[],
       clickarr:[],
       clickindex1:-1,
+
+      /**
+       * 因為有個時間數組...
+       * 所以要有一個原始計數.....
+       * 和一個index....
+       */
+      thistime:0,
+      timeindex:0,
     };
   },
   components: {
@@ -248,10 +265,15 @@ export default {
     songword: function () {
       //console.log(this.songword);
       this.thesongword = this.songword;
+      this.timearr.length=0;
+      this.timeindex=0;
       this.getsongword();
+      this.getsongtime();
+      
     },
     songinfo: function () {
       this.getsongcomment();
+     
     },
     commentarr:function()
     {
@@ -260,7 +282,47 @@ export default {
        {
            this.clickarr[i]=-1;
        }
-    }
+    },
+    //當時間變化....
+    mycurrenttime:function()
+    {
+      /**
+       * 當當前的timearr[timeindex]<=mycurrenttime
+       * flag..
+       * 防止一直加....
+       */
+      /**
+       * 檢查一下有沒有跳回前面...有則把this.timeindex改回
+       */
+      if(parseFloat(this.timearr[this.timeindex])<=this.mycurrenttime )
+      {
+        ++this.timeindex;
+
+        /**
+         * 開始top-30...
+         */
+        var a=document.getElementsByClassName("word-container")[0]
+        console.log(a.style.top=((this.timeindex-1)*(-30)+'px'));
+        //console.log(this.mycurrenttime);
+        //console.log(this.timeindex);
+      }
+    },
+    //當時間軸變化
+    istouch:function()
+    {
+        var index;
+        for(var i=0;i<this.timearr.length;i++)
+        {
+          index=i;
+          if(this.timearr[i]>=this.timeindex)
+          {
+              break;
+          }
+        }
+       this.timeindex=index;
+        var a=document.getElementsByClassName("word-container")[0]
+        a.style.top((this.timeindex-1)*(-30)+'px');
+    },
   },
   methods: 
   {
@@ -272,9 +334,10 @@ export default {
     getsongword: function () 
     {
       var a = /(\[.*\])/g;
-      this.thesongword = this.thesongword.replace(a, "");
+      var songword=this.thesongword.replace(a, "");
+      //this.thesongword = this.thesongword.replace(a, "");
       //console.log(this.thesongword);
-      var arr = this.thesongword.split("\n");
+      var arr = songword.split("\n");
       this.songwordarr = arr;
       //console.log(arr);
     },
@@ -299,7 +362,66 @@ export default {
        {
            var that=this;
            this.$axios.get("http://localhost:3000/")
-       }
+       },
+      getsongtime:function()
+      {
+        var  regNewLine = /\n/
+        var a=/\[\d{2}:\d{2}.\d{2,3}\]/
+        var  lineArr = this.thesongword.split(regNewLine) // 每行歌词的数组
+        //console.log(lineArr);
+        for(var i=0;i<lineArr.length;i++)
+        {
+          //console.log(lineArr[i]);
+          if(lineArr[i]!='')
+          {
+          lineArr[i]=lineArr[i].match(a)[0];
+          }
+          //lineArr[i].match(a)[0];
+        }
+        //console.log(lineArr)
+        this.gettime(lineArr[1]);
+        /**這個是抽取時間.... */
+        //這里是因為忘了清上次的時間軸....
+        if(this.timearr.length!=0)
+        {
+          for(var i=0;i<this.timearr.length;i++)
+          {
+               this.timearr.pop();
+          }
+        }
+        for(var i=0;i<lineArr.length;i++)
+        {
+          if(lineArr[i]!='')
+          {
+          this.timearr.push((this.gettime(lineArr[i])));
+          //console.log(this.timearr[i]);
+          }
+        }
+       // console.log(this.timearr);
+        
+      // console.log(lineArr[36]);
+       // console.log(this.gettime(lineArr[36]));
+        
+      },
+      gettime:function(time)
+      {
+       var  Min = /.*:/
+       var  Sec = /:.*\./
+       var  Ms = /\..*/
+        
+        var min=time.match(Min)[0].slice(1,3);
+        var sec=time.match(Sec)[0].slice(1,3);
+        var ms=time.match(Ms);
+        ms=time.slice(ms.index+1,ms.index+3)
+        //console.log(min);
+        //console.log(time.match(Sec)[0].slice(1,3));
+        //真的sec1
+        //var sec1=time.match(Sec)[0].slice(1,3);
+        //console.log(min+''+sec+''+ms);
+        //console.log(parseInt(min)*60)
+        return (parseInt(min)*60+parseInt(sec)+'.'+ms)
+      },
+      
   },
 };
 </script>
@@ -530,18 +652,34 @@ export default {
 .real-info .album-name:hover {
   color: #0b58b0;
 }
-.word-container {
+.word-real-container
+{
   width: 400px;
-  height: 330px;
-  border-right: 1px solid #f3f3f3;
-
+  height: 300px;
+  position: relative;
   overflow: scroll;
 }
+.word-container {
+  width: 400px;
+  
+  top: 0px;
+  float: left;
+  border-right: 1px solid #f3f3f3;
+  position: absolute;
+  overflow: scroll;
+  transition: all 0.3s linear 0.3s;
+  
+}
 .song-word {
-  width: 300px;
+  width: 400px;
   height: 30px;
   line-height: 30px;
   font-size: 15px;
   color: #666666;
+}
+.song-word.singing{
+  color: #161616;
+  font-weight: 900;
+  font-size: 18px;
 }
 </style>

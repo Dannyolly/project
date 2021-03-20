@@ -5,10 +5,11 @@
                 最佳匹配
             </h5>
             <!--組件bestbox....盒子...-->
-             <best-box>
-                 <img slot="img" :src="artist.img1v1Url" alt="">
+             <best-box >
+                 <img @click="gotosingerpage" slot="img" :src="artist.img1v1Url" alt="">
               <span slot="best-box-information" class="best-box-information">
-                 {{artist.occupation+":"}} {{artist.name}}
+                 歌手: {{artist.name}}
+                 <!--  {{artist.occupation+":"}} {{artist.name}}  -->
                  <!--v-if是為廢事報錯....又是因為異步操作...
                  http://www.cnblogs.com/xxm980617/p/10849941.html
                  .所導致第一次查的時候為空?-->
@@ -45,7 +46,18 @@ export default {
     },
     components:{
          bestBox,
-    }
+    },
+    methods: {
+        /**------------------------------------------------------------- */
+        /**
+         * gotosingerpage...
+         * 直接發對象....
+         */
+        gotosingerpage:function()
+        {
+          this.$router.push({path:'/home/singerpage',query:{singerobj:this.artist}});
+        },
+    },
 }
 </script>
 

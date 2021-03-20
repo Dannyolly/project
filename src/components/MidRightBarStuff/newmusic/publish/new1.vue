@@ -6,7 +6,7 @@
             <anytype @receivestr="receive">
                  <div slot="function" class="function">
                     <div class="relative-container">
-                          <div class="playall">
+                          <div @click="getallsong" class="playall">
                             <i class="far fa-play-circle"></i>
                              <span>播放全部</span>
                           </div>
@@ -25,7 +25,7 @@
                :width="789">
                    <div  slot="index" class="index">{{index<9? '0'+(index+1):index+1}}</div>
                    <img  slot="img" :src="item.album.blurPicUrl" alt="">
-                   <div @click="sendurl(item.id)" slot="icon" class="icon-play">
+                   <div @click="sendurl(index)" slot="icon" class="icon-play">
                        <i class="fas fa-play"></i>
                    </div>
                    <div slot="name" class="listbox-text">
@@ -66,7 +66,7 @@ export default {
         url:function()
         {
             //console.log(this.url);
-            this.$emit('getSongUrl',this.url);
+            //this.$emit('getSongUrl',this.url);
         },
         type:function()
         {
@@ -77,15 +77,23 @@ export default {
         this.getsong();
     },
     methods: {
-           sendurl:function(url)
+           sendurl:function(index)
           {
               //console.log(url);
               var that=this;
+              console.log(this.newsongarr[index]);
+              this.$emit('getonesong',this.newsongarr[index]);
+              /* 
               this.$axios.get("http://localhost:3000/song/url?id="+url)
               .then(res=>{
-                  console.log(res);
+                  //console.log(res);
                   that.url=res.data.data[0].url;
               })
+              */
+          },
+          getallsong:function()
+          {
+              this.$emit('getallsong',this.newsongarr,this.newsongarr.length);
           },
           receive:function(str)
          {
@@ -110,9 +118,10 @@ export default {
             var that=this;
             this.$axios.get("http://localhost:3000/top/song?type="+that.type)
             .then(res=>{
-                //console.log(res.data.data);
+               
                 that.newsongarr=res.data.data;
                 that.newsongarr.length=10;
+                 console.log(res.data.data);
                 /**
                  * pic----.album.bluePicUrl
                  * name----.name

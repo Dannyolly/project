@@ -3,7 +3,7 @@
     <div class="big-container">
       <div class="mvpage-leftcontainer">
         <div class="title">
-          <i @click="out" class="fas fa-chevron-left" slot="text"></i>
+          <i @click="out1" class="fas fa-chevron-left" slot="text"></i>
           <span>MV詳情</span>
         </div>
         <!--video-->
@@ -135,11 +135,27 @@ export default {
     /**
      * out() 
      * 用來從MV返回上一頁....
+     * 當index==1時...則是返回上一頁的同時也要回數據....
      */
-    out:function()
+    out1:function()
     {
         this.$emit('checkMv');
-        this.$router.go(-1);
+        console.log(this.$route.query.save);
+        
+        if(this.$route.query.save==1)
+        {
+           //console.log('?');
+           //暫時比歌手用....
+           this.$router.push({path:this.$route.query.pre,query:{singerobj:this.$route.query.singerobj}});
+        }
+        else if(this.$route.query.save==0)
+        {
+          //console.log(this.$route.query.arr);
+          this.$router.push({path:this.$route.query.pre});
+        }
+        
+ 
+        //this.$router.push(thi);
     },
 
       /**------------------------------------------------------------------------- */
@@ -152,7 +168,7 @@ export default {
       var that=this;
       this.$axios.get("http://localhost:3000/simi/mv?mvid="+this.videoobj.id)
       .then(res=>{
-          console.log(res.data.mvs);
+          //console.log(res.data.mvs);
           that.closemvarr=res.data.mvs
       })
     },
@@ -180,8 +196,17 @@ export default {
         var that=this;
         this.$axios.get("http://localhost:3000/comment/mv?id="+this.videoobj.id)
         .then(res=>{
-            //console.log(res.data.hotComments);
-            that.commentarr=res.data.hotComments;
+            console.log(res);
+            if(res.data.hotComments.length!=0)
+            {
+  
+             that.commentarr=res.data.hotComments;
+            }
+            else 
+            {
+              that.commentarr=res.data.comments;
+
+            }
         })
     },
     /**-------------------------------------------------------------------------- */

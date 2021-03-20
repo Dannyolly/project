@@ -31,7 +31,7 @@
         <div class="pic-container">
             <div class="real-container">
                 <img-box v-for="(item,index) in songpicarr" :key="item.name+index" :width="135" :height="135">
-                   <img slot="img" :src="item.img1v1Url" alt="">
+                   <img @click="gotosingerpage(index)" slot="img" :src="item.img1v1Url" alt="">
                    <span slot="text" class="recommend-text">{{item.name}}</span>
                 </img-box>
  
@@ -89,6 +89,18 @@ export default {
         this.getfirstsongpic();
     },
     methods: {
+        /**----------------------------------------------------------- */
+         /**
+          * gotosingerpage(index)
+          * 傳去歌手界面... 
+          */
+        gotosingerpage:function(index)
+        {
+          //
+          //this.$router.push('/home/singerpage',this.songpicarr[index])
+          this.$router.push({path:'/home/singerpage',query:{singerobj:this.songpicarr[index]}});
+        },
+        /**----------------------------------------------------------- */
         /**
          * 點擊然後改變str....
          * changestr()
@@ -144,7 +156,7 @@ export default {
              this.$axios.get("http://localhost:3000/artist/list?type=-1&area=-1&limit=20")
                .then((result) => {
                   that.songpicarr=result.data.artists;
-                  console.log(that.songpicarr)
+                  //console.log(that.songpicarr)
                }).catch((err) => {
                    
                });

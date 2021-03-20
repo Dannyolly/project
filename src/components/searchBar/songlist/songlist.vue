@@ -1,7 +1,7 @@
 <template>
     <div id="songlist">
-        <listbox v-for="item in songlistarr" :key="item.id">
-             <img slot="img" :src="item.coverImgUrl" alt="">
+        <listbox v-for="(item,index) in songlistarr" :key="item.id">
+             <img @click="gotosongpage(index)" slot="img" :src="item.coverImgUrl" alt="">
              <div slot="name" class="listbox-text">
                  <span>{{item.name}}</span>
              </div>
@@ -43,6 +43,11 @@ export default {
      }
   },
       methods: {
+      gotosongpage:function(index)
+      {
+        console.log(this.songlistarr[index]);
+        this.$router.push({path:'/home/songpage',query:{arr:this.songlistarr[index]}});
+      },
       getinfo:function()
       {
         var that=this

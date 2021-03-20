@@ -6,20 +6,20 @@
                 <i class="fas fa-chevron-right" slot="text"></i>
             </h2>
         </title-box>
-        <musicbox v-for="(item) in NewMusicArr" :key="item.duration">
+        <musicbox v-for="(item,index) in NewMusicArr" :key="item.duration">
 
             
-            <img  slot="img" :src="item.album.blurPicUrl" alt="">
+            <img @click="sendmusic(index)"  slot="img" :src="item.album.blurPicUrl" alt="">
             
             <span class="title" slot="title">
 
                 {{item.name}}
             </span>
               <div slot="mv" v-if="item.mvid!=0" class="mv-box">
-                <a   href="#">
+
                 <!--Mv按鈕..............-->
-                  <img src="../assets/img/mv.png" alt="">
-                 </a>
+                  <img  src="../assets/img/mv.png" alt="">
+           
               </div>
             <div  class="star-name" slot="star-name">{{item.artists[0].name}}</div>
         </musicbox>
@@ -49,8 +49,19 @@ export default {
         this.getNewMusicPic();
     },
     methods: {
+        /**------------------------------------------------------------------ */
+        sendmusic:function(index)
+        {
+
+           this.$emit('sendmusic',this.NewMusicArr[index]);
+        },
+        /**------------------------------------------------------------------ */
         getNewMusicPic: function()
         {
+            /**
+             * mvid....直接路由傳值.....
+             * song....直接父傳值吧....shit...
+             */
             var that=this
             this.$axios.get("http://localhost:3000/top/song?type=0")
             .then((result)=>{

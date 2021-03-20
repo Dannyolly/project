@@ -44,6 +44,7 @@
     <!--getSongUrl...這是兒子傳給祖父....這里在傳給home父組件用....-->
     <router-view
       @getthesongurl="getTheSongUrl"
+
       :artist="artist"
       :album="album"
       :str="str"
@@ -146,13 +147,13 @@ export default {
      * start....close 是為關閉或重新打開...加載組件...
      * 父收子的方法getTheSongUrl...再傳多次上去...
      */
-    getTheSongUrl: function (info) 
+    getTheSongUrl: function (info,url) 
     {
       //新增.....arr----歌的資料...
       //console.log(info);
       //console.log('父收到了');
       //console.log(this.$route.query);
-      this.$emit("getthesongurl",info); //再傳多次上去...
+      this.$emit("getthesongurl",info,url); //再傳多次上去...
     },
     /*
     playMusic:function(index)
@@ -326,19 +327,22 @@ export default {
         //console.log(that.songCount);
       })
     },
-    getBextMatch: function () {
+    getBextMatch: function () 
+    {
+      console.log('getbest')
       var that = this;
-      this.$axios
-        .get(
-          "http://localhost:3000/search/multimatch?keywords=" + that.searchstr
-        )
+    
+    
+  
+      this.$axios.get("http://localhost:3000/search/multimatch?keywords=" + that.searchstr)
         .then((result) => {
+          console.log(result.data.result.artist);
           that.artist = result.data.result.artist[0];
-          that.album = result.data.result.album[0];
-          that.str = result.data.result.album[0].alias[0];
+          //that.album = result.data.result.album[0];
+          //that.str = result.data.result.artist[0].alias;
           that.str = cutdouwn(that.str.length - 7, that.str);
-
-          console.log(that.artist);
+          })
+          //console.log(that.artist);
 
           /**  都是[0]
            * 歌手 .img1v1Url
@@ -352,9 +356,23 @@ export default {
            * 類型 .type
            * () .alias[0]
            */
-        })
-        .catch((err) => {});
-    },
+    //    })
+    }
+    /*
+     
+     */
+     /* 
+    this.$axios.get("http://localhost:3000/search/suggest?keywords="+this.searchstr)
+    .then((result) => {
+      ///console.log(result); 
+        that.artist = result.data.result.artists[0];
+        that.album = result.data.result.album[0];
+        that.str = result.data.result.album[0].alias[0];
+        hat.str = cutdouwn(that.str.length - 7, that.str);
+    }).catch((err) => {
+      
+    });
+    */
   },
 };
 </script>

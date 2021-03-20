@@ -1,13 +1,13 @@
 <template>
     <div id="movie" >
-        <div class="movie-container" v-for="item in videoarr" :key="item.name">
+        <div class="movie-container" v-for="(item,index) in videoarr" :key="item.name">
            <video-box class="movie-box" >
             <div slot="clickcount" class="playCount">
                 <i class="fas fa-play">
                     {{item.playTime}}
                 </i>
             </div>
-            <img :src="item.coverUrl" alt="" slot="video">
+            <img @click="gotomvpage(index)" :src="item.coverUrl" alt="" slot="video">
                  <h4 slot="h4" class="mv-title" id="movie-box-movie">
                      {{item.title}}
                  </h4>
@@ -47,6 +47,15 @@ export default {
       this.getinfo();
      },
       methods:{
+      gotomvpage:function(index)
+      {
+        //console.log(this.videoarr[index]);
+        this.$axios.get("http://localhost:3000/video/detail?id="+this.videoarr[index].vid)
+        .then(res=>{
+            console.log(res);
+        })
+        
+      },
       checkout:function()
       {
          //console.log('in');

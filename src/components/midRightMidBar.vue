@@ -5,7 +5,9 @@
         <!--3.推薦歌單....>-->
         <recommend></recommend>
         <pushing></pushing>
-        <new-music></new-music>
+        <!--new-music....@sendmusic="sendmusic"    傳上來的對象...-->
+        <new-music  @sendmusic="sendmusic">
+        </new-music>
         <recommend-mv></recommend-mv>
         
     </div>
@@ -45,6 +47,18 @@ export default {
         
     },
     methods: {
+        /**------------------------------------------------------- */
+        /**
+         * 這里是從newmusic推薦音樂組件傳上來的值...還要傳多兩次...
+         * 統一sendmusic()
+         * 
+         */
+        sendmusic:function(obj)
+        {
+            //console.log(obj);
+            this.$emit('sendmusic',obj);
+        },
+        /**------------------------------------------------------- */
         sendindex:function()
         {
             this.$emit('receiveindex',this.index);

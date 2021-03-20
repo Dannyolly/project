@@ -1,7 +1,7 @@
 <template>
     <div id="singer">
         <listbox v-for="(item,index) in singerarr" :key="index">
-            <img @click="getinfo" slot="img" :src="item.img1v1Url" alt="">
+            <img @click="gotosingerpage(index)" slot="img" :src="item.img1v1Url" alt="">
             <div slot="name" class="listbox-text">
                 <span>{{item.name}}</span>
                 <span>({{item.alias[0]}})</span>
@@ -41,6 +41,12 @@ export default {
        this.saveCount();
   },
   methods: {
+      /**---------------------------------------------------------------------- */
+      gotosingerpage:function(index)
+      {
+       this.$router.push({path:'/home/singerpage',query:{singerobj:this.singerarr[index]}})
+      },
+      /**---------------------------------------------------------------------- */
       getinfo:function()
       {
         var that=this
@@ -48,7 +54,7 @@ export default {
         .then((result) => { 
            that.singerarr=result.data.result.artists;
            that.singerCount=result.data.result.artistCount;
-           console.log(that.singerCount);
+           //console.log(that.singerCount);
         }).catch((err) => {
             
         });

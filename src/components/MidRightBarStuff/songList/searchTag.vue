@@ -97,7 +97,7 @@ export default {
         clickthetag:function(index)
         {
            this.thisIndex=index;
-           console.log(this.showtagarr[index]);
+           //console.log(this.showtagarr[index]);
            this.thetag=this.showtagarr[index];
            //the
         },

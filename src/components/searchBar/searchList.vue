@@ -1,5 +1,5 @@
 <template>
-    <div id="search-list" >
+    <div id="search-list" :style="{width:width+'px',height:height}">
       <div class="search-list-musictitle">
           <slot name="num"></slot>
           <slot name="icon-like"></slot>
@@ -7,19 +7,19 @@
           <slot name="the-title"></slot>
       </div>
       
-      <div class="search-list-musicsinger">
+      <div class="search-list-musicsinger" :style="{width:singerwidth+'px'}">
           <slot name="the-singer"></slot>
       </div>
       
-      <div class="search-list-album">
+      <div class="search-list-album" :style="{width:albumwidth+'px'}">
           <slot name="the-album"></slot>
       </div>
-      <div class="search-list-time">
+      <div class="search-list-time" :style="{width:timewidth+'px'}">
           <slot name="time"></slot>
 
       </div>
       <!--熱度條...-->
-      <div class="search-list-hot">
+      <div class="search-list-hot" :style="{width:hotwidth+'px'}">
          <slot name="hot"></slot>
          <!--檔住xx%-->
          <div class="nonum"></div>
@@ -35,6 +35,7 @@ export default {
           isActive:false,
         }
     },
+    props:['width','height','albumwidth','singerwidth','timewidth','hotwidth'],
     methods: {
     },
 }

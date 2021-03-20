@@ -71,24 +71,30 @@ export default {
      * 一些父組件的方法....
      * 組件樹做得不好...
      */
-    playMusic: function (index) 
+    playMusic:async function (index) 
     {
       var that = this;
       console.log(this.allList[index].id);
       //console.log(this.allList[index]);
-      get({
+    await  get({
         url: "/song/url?id=" + this.allList[index].id,
       }).then((res) => {
         that.songUrl = res.data.data[0].url;
         //console.log(res);
-        that.$emit("getthesongurl",that.allList[index]);
+        //console.log(that.songUrl);
+        that.$emit("getthesongurl",that.allList[index],that.songUrl);
         //console.log(that.searchstr);
 
         // 不用加song???? wtf....
+        /**
+         * 2021/3/20....改了...有BUG呢個songurl...
+         */
+        /*
         that.$router.push({
           path: "/home/searchPage/song",
           query: { info: that.searchstr, songurl: that.songUrl },
         });
+        */
         that.close();
       });
     },

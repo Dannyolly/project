@@ -115,7 +115,7 @@ export default {
                var that=this;
               this.$axios.get("http://localhost:3000/video/group/list")
               .then(res=>{
-                  //console.log(res);
+                  //console.log(res.data.data);
                   this.taglist=res.data.data;
 
               })
@@ -123,9 +123,11 @@ export default {
         getvideolist:function()
         {
             var that=this;
-            this.$axios.get("http://localhost:3000/mv/all")
+            console.log("???")
+            this.$axios.get("http://localhost:3000/video/group?id=9104")
             .then((result) => {
                 //console.log(result)
+                console.log(result);
             }).catch((err) => {
                 
             });

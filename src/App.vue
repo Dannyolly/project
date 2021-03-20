@@ -24,15 +24,7 @@ export default {
     
   },
   methods: {
-    try:function()
-    {
-      this.$axios.get("http://localhost:3000/song/url?id=1823305772")
-      .then((result) => {
-        console.log(result.data.data[0].url);
-      }).catch((err) => {
-        
-      });
-    }
+  
   },
   mounted() {
     //this.try();

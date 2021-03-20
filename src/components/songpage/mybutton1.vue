@@ -1,5 +1,5 @@
 <template>
-    <div class="mybutton1">
+    <div class="mybutton1" :style="{width:width+'px',height:height+'px'}">
         <div class="left-part">
             <slot name="icon"></slot>
             <slot name="text"></slot>
@@ -9,7 +9,8 @@
 
 <script>
 export default {
-    name:'mybutton1'
+    name:'mybutton1',
+    props:['width','height']
 }
 </script>
 

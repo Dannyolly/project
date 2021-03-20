@@ -1,6 +1,6 @@
 <template>
     <div id="music-box">
-        <a href="#">
+
         <div class="icon">
             <slot name="img">
 
@@ -9,7 +9,7 @@
                <i class="fas fa-play"></i>
             </div>
         </div>
-        </a>
+
         <div class="music-box-content">
 
             <slot name="title"></slot>

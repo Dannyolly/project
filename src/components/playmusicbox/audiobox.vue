@@ -5,6 +5,9 @@
                 <img v-if="songinfo.al" @mousemove="changeavater" 
                      
                 :src="songinfo.al.picUrl" alt="">
+                <img v-else-if="songinfo.album" @mousemove="changeavater" 
+                     
+                :src="songinfo.album.picUrl" alt="">
                 <!--:src="songinfo.al.picUrl"-->
                 <div @mouseout="changeavater" v-show="isavater" 
                      class="info"
@@ -17,12 +20,18 @@
                  <h4>
                      {{songinfo.name}}
                     <i class="far fa-heart"></i>
+                   
                  </h4>
                  <span v-if="songinfo.ar">{{songinfo.ar[0].name}}</span>
+                 <span v-else-if="songinfo.artists">{{songinfo.artists[0].name}}</span>
              </div>
          </div>
          <div class="audio-container">
-             <audio class="my-audio" autoplay="autoplay"
+             <div class="myplay">
+                 <i @click="play" v-show="isplaying==false" class="fas fa-play"></i>
+                 <i @click="pause" v-show="isplaying==true" class="fas fa-pause"></i>
+             </div>
+             <audio  class="my-audio" 
               :src="src"
               controls="controls"></audio>
          </div>
@@ -35,19 +44,51 @@
 </template>
 
 <script>
+
 export default {
     name:'audiobox',
-    props:['src','songinfo'],
+    props:['src','songinfo','isplaying'],
     data() {
         return {
             //頭像的選項...
             isavater:false,
+            //isplaying:false,
+            time:0,
             //臨時的src
             mysrc:'http://p3.music.126.net/_B1Fn_Z1WxHzqGLzLZDf-w==/109951163263882447.jpg',
             mysongurl:'http://m8.music.126.net/20210314102325/678d98437b5ed21786ed1aecc19eae16/ymusic/7a0a/0e2f/87ac/92a20ea5c429bb61e61bc5bc23f1f4c6.mp3'
         }
     },
-    methods: {
+    watch:{
+       songinfo:function()
+       {
+           if(this.isplaying==true)
+           {
+               //this.isplaying=false;
+           }
+       }
+    },
+    methods: 
+    {
+        touch:function()
+        {
+          console.log('?');
+        },
+        play:function()
+        {
+          //this.isplaying=!this.isplaying
+          this.$parent.isplaying=!this.$parent.isplaying;
+          var a=document.getElementsByClassName("my-audio")[0];
+          a.play();
+          this.getaudiotime();
+        },
+        pause:function()
+        {
+           //this.isplaying=!this.isplaying
+           this.$parent.isplaying=!this.$parent.isplaying;
+           var a=document.getElementsByClassName("my-audio")[0];
+           a.pause();
+        },
         showthesonginfo:function()
         {
           this.$emit('showthesonginfo')
@@ -59,7 +100,29 @@ export default {
         showthelist:function()
         {
           this.$emit('show');
+          this.getaudiotime();
         },
+        getaudiotime:function()
+        {
+            var a=document.getElementsByClassName("my-audio")[0];
+            //當前時間...
+            //console.log(a.currentTime);
+            //是否暫停.....
+          
+              var that=this;
+
+             //console.log()
+             var t2=setInterval(function()
+              {
+                that.$parent.mycurrenttime=a.currentTime;
+               // console.log(that.$parent.mycurrenttime);
+                if(a.paused==true)
+                {
+                    clearInterval(t2)
+                }
+              },100)
+            
+        }
     },
 }
 </script>
@@ -128,7 +191,7 @@ export default {
    .turnmode img
    {
        width: 100%;
-       
+       border-radius: 5px;
    }
    .turnmode img:hover
    {
@@ -175,4 +238,20 @@ export default {
        color: #8E8E8F;
        cursor: pointer;
    }
+   .myplay
+   {
+       position: absolute;
+       width: 30px;
+       height: 30px;
+       text-align: center;
+       line-height: 30px;
+       left: 273px;
+       z-index: 555;
+       bottom: 11px;
+   }
+   .myplay i
+   {
+       cursor: pointer;
+   }
+   
 </style>

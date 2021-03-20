@@ -1,7 +1,8 @@
 <template>
     <div class="songpage-top-bar">
         <div class="imgbox">
-            <img :src="songobj.picUrl" alt="">
+            <img v-if="songobj.picUrl" :src="songobj.picUrl" alt="">
+            <img v-else-if="songobj.coverImgUrl" :src="songobj.coverImgUrl" alt="">
         </div>   
         <div class="right-container">
             <div class="right-top-bar">
@@ -40,7 +41,7 @@
 
             <div class="bottom-bar">
                 <div class="top">
-                    <span>標簽: </span>
+                    <span id="top-tag">標簽: </span>
                     <div v-for="(item,index) in tags" :key="item+index" 
                     class="language">{{item}}</div>
                    
@@ -53,7 +54,8 @@
                 </div>
                 <div class="bottom">
                     <span>簡介:</span>
-                    <span>{{songobj.copywriter}}</span>
+                    <span v-if="songobj.copywriter">{{songobj.copywriter}}</span>
+                     <span v-else-if="songobj.description">{{songobj.description}}</span>
                 </div>
             </div>
 
@@ -185,12 +187,23 @@ export default {
       commentarr:function()
       {
           //this.setcommentarr();
+      },
+      songobj:function()
+      {
+          if(this.songobj.description)
+          {
+          this.checkout();
+          }
       }
     },
     mounted() {
         this.setallsetting();
     },
     methods: {
+    checkout:function()
+    {
+      this.songobj.description=cut(this.songobj.description.length-30,this.songobj.description);
+    },
     /**------------------------------------------------------------------- */
     /**
      * playall....歌單中的播放全部
@@ -308,6 +321,14 @@ export default {
      width: 789px;
      height: 270px;
      float: left;
+   }
+   #top-tag
+   {
+       float: left;
+   }
+   .top .language
+   {
+       line-height: 21px;
    }
   .songpage-top-bar
     {

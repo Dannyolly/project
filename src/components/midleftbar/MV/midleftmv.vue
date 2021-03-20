@@ -8,7 +8,9 @@
              </div>
              <div class="right-container">
                   <div 
-                   v-for="(item,index) in typearr" :key="item+index" class="tag-box1">
+                   v-for="(item,index) in typearr" 
+                   :key="item+index" 
+                   class="tag-box1">
                     <div
                     @click="changeStr(str,index,1)"
                     :class="{active:theindex==index}" 
@@ -26,7 +28,7 @@
                     {{item.playCount}}
                 </i>
             </div>
-            <img :src="item.cover" alt="" slot="video">
+            <img @click="gotomvpage(index)" :src="item.cover" alt="" slot="video">
                  <h4 slot="h4" class="mv-title">{{item.name}}</h4>
              <span slot="text" class="video-box-text">
                 {{item.artistName}}
@@ -48,7 +50,7 @@
                     {{item.playCount}}
                 </i>
             </div>
-            <img :src="item.cover" alt="" slot="video">
+            <img @click="gotomvpage(index)" :src="item.cover" alt="" slot="video">
                  <h4 slot="h4" class="mv-title">{{item.name}}</h4>
             </video-box>
         </div>
@@ -73,7 +75,7 @@
             <div class="mvranking">
                <mvrankingbox v-for="(item,index) in mvrankingarr" :key="item+index">
                     <span slot="index">{{index<9? ('0'+(index+1)):index+1}}</span>
-                    <img slot="img" :src="item.cover" alt="">
+                    <img @click="gotomvpage(index)" slot="img" :src="item.cover" alt="">
                     <h4 slot="h4">{{item.name}}</h4>
                     <span slot="span">{{item.artistName}}</span>
                </mvrankingbox>
@@ -131,7 +133,18 @@ export default {
         this.getoriginmvlist();
         this.getmvranking();
     },
-    methods: {
+    methods:
+     {
+         /**------------------------------------------------------------------ */
+         /**
+          * gotomvpage...
+          */
+         gotomvpage:function(index)
+         {
+            console.log(this.mvarr[index]);
+            this.$router.push({path:'/home/mvpage',query:{pre:this.$route.path,arr:this.mvarr[index],save:1}});
+         },
+         /**---------------------------------------------------------------- */
            changeStr:function(str,index,num)
             {
               if(str===this.str&&num==1)
@@ -147,7 +160,9 @@ export default {
             },
             
             /**
-             * getmvlist
+             * getoriginmvlist...
+             * 呢個系網易出品的....
+             * 
              */
             getoriginmvlist:function()
             {
@@ -163,7 +178,7 @@ export default {
               var that=this;
               this.$axios.get("http://localhost:3000/mv/all?limit=6&area="+that.str)
               .then(res=>{
-                  //console.log(res);
+                  console.log(res.data.data);
                   that.mvarr=res.data.data;
                  
               })
